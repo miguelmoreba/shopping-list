@@ -13,6 +13,7 @@ export class AppComponent implements OnInit{
   title = 'shopping-list';
 
   items: any[];
+  newItem = new FormControl('');
 
   ngOnInit(): void {
     this.dataService.getItems()

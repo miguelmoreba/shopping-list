@@ -1,5 +1,8 @@
 <h1>Shopping list app</h1>
-<div class="container-flui pt-4 pl-2">
+
+
+<div class="container-fluid pt-4 pl-2">
+  <input type="text" [formControl]='newItem'/>
   <div class="row">
     <div *ngFor="let item of items" class="col-md-7">
       <div class="card">
