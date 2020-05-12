@@ -2,18 +2,22 @@
 
 
 <div class="container-fluid pt-4 pl-2">
-  <input type="text" [formControl]='newItem'/>
   <div class="row">
-    <div *ngFor="let item of items" class="col-md-7">
-      <div class="card">
-        <div class='card-body'>
-          <p>{{item}}</p>
+    <form [formGroup]="itemsArrayForm">
+      <div formArrayName=items>
+        <div *ngFor="let item of items.controls; let i = index" class="col-lg-7">
+          <div class="card">
+            <div class='card-body'>
+              <input [formControlName]="i" (keydown.enter)="onKeydown($event, i)"/>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 
-  <button class="btn btn-primary pl-2 mt-2" (click)="onClick()">
-    Add item
+  <button class="btn btn-secondary pl-2 mt-2" (click)="onClick()">
+    Save Changes
+    <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
   </button>
 </div>
