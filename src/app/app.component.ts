@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 
 @Component({
@@ -6,13 +6,18 @@ import { DataService } from './data.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   constructor(private readonly dataService: DataService){}
 
   title = 'shopping-list';
 
-  items = ['cheese', 'carrots', 'ham']
+  items: any[];
+
+  ngOnInit(): void {
+    this.dataService.getItems()
+      .subscribe(response => this.items = response);
+  }
 
   onClick() {
     console.log('heeeeeey')

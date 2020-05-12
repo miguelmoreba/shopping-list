@@ -23,4 +23,9 @@ export class DataService {
     const url = 'https://api.jsonbin.io/b';
     return this.httpService.post(url, data, this.requestOptions);
   }
+
+  getItems(): Observable<any> {
+    const url = 'https://api.jsonbin.io/b/5eb9bdea8284f36af7b98912/latest'
+    return this.httpService.get(url, this.requestOptions);
+  }
 }
