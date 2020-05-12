@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { DataService } from './data.service';
 
 @Component({
@@ -16,13 +17,19 @@ export class AppComponent implements OnInit{
   newItem = new FormControl('');
 
   ngOnInit(): void {
-    this.dataService.getItems()
-      .subscribe(response => this.items = response);
+    this.getData()
   }
 
   onClick() {
-    console.log('heeeeeey')
-    this.dataService.postItem({items: ['cheese']})
-      .subscribe(() => console.log('done'));
+    this.dataService.postItem([...this.items].concat(this.newItem.value))
+      .subscribe((response) => {
+        console.log('done', response);
+        this.getData();
+      });
+  }         
+
+  getData() {
+    this.dataService.getItems()
+      .subscribe(response => this.items = response);
   }
 }
