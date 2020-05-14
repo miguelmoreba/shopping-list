@@ -62,6 +62,7 @@ export class AppComponent implements OnInit {
   }
 
   populateForm() {
+    this.isLoading = true;
     this.dataService.getItems()
       .subscribe(response => {
         this.items.clear()

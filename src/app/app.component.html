@@ -1,9 +1,12 @@
 <h1>Shopping list app</h1>
 
-<button (click)="onUpdateClick()">
+<button class="btn btn-secondary ml-2 mt-2" (click)="onUpdateClick()">
   Update
 </button>
-
+<button class="btn btn-secondary ml-2 mt-2" (click)="onClick()">
+  Save Changes
+</button>
+<span *ngIf="isLoading" class="spinner-border spinner-border-sm ml-2 mt-2" role="status" aria-hidden="true"></span>
 <div class="container-fluid pt-4 pl-2">
   <div class="row">
     <form [formGroup]="itemsArrayForm">
@@ -11,7 +14,8 @@
         <div *ngFor="let item of items.controls; let i = index">
           <div class="card">
             <div class='card-body'>
-              <input [formControlName]="i" [id]="i" (keydown.enter)="onKeydownEnter($event, i)" (keydown)="onKeyDown($event, i)"/>
+              <input [formControlName]="i" [id]="i" (keydown.enter)="onKeydownEnter($event, i)"
+                (keydown)="onKeyDown($event, i)" />
             </div>
           </div>
         </div>
@@ -19,8 +23,4 @@
     </form>
   </div>
 
-  <button class="btn btn-secondary pl-2 mt-2" (click)="onClick()">
-    Save Changes
-    <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-  </button>
 </div>
