@@ -25,6 +25,10 @@ export class AppComponent implements OnInit {
     this.populateForm()
   }
 
+  onUpdateClick(){
+    this.populateForm();
+  }
+
   onClick() {
     this.isLoading = true;
     this.dataService.postItem(this.items.value.filter(value => value))

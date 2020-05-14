@@ -1,5 +1,8 @@
 <h1>Shopping list app</h1>
 
+<button (click)="onUpdateClick()">
+  Update
+</button>
 
 <div class="container-fluid pt-4 pl-2">
   <div class="row">
@@ -8,7 +11,7 @@
         <div *ngFor="let item of items.controls; let i = index">
           <div class="card">
             <div class='card-body'>
-              <input [formControlName]="i" #{{i}} [id]="i" (keydown.enter)="onKeydownEnter($event, i)" (keydown)="onKeyDown($event, i)"/>
+              <input [formControlName]="i" [id]="i" (keydown.enter)="onKeydownEnter($event, i)" (keydown)="onKeyDown($event, i)"/>
             </div>
           </div>
         </div>
