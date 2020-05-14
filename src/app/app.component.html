@@ -5,10 +5,10 @@
   <div class="row">
     <form [formGroup]="itemsArrayForm">
       <div formArrayName=items>
-        <div *ngFor="let item of items.controls; let i = index" class="col-lg-7">
+        <div *ngFor="let item of items.controls; let i = index">
           <div class="card">
             <div class='card-body'>
-              <input [formControlName]="i" (keydown.enter)="onKeydown($event, i)"/>
+              <input [formControlName]="i" #{{i}} [id]="i" (keydown.enter)="onKeydownEnter($event, i)" (keydown)="onKeyDown($event, i)"/>
             </div>
           </div>
         </div>

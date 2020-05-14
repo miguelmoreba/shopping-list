@@ -37,8 +37,20 @@ export class AppComponent implements OnInit {
       )
   }
 
-  onKeydown(event, index){
-    this.items.insert(index + 1, new FormControl(''))
+  onKeydownEnter(event, index){
+    this.items.insert(index + 1, new FormControl(''));
+    setTimeout(()=> {
+      <HTMLInputElement><unknown>document.getElementById((index + 1).toString()).focus();
+    }, 0)
+  }
+
+  onKeyDown(event, index){
+    console.log(event)
+    if(this.items.at(index).value.length === 0 && event.key === 'Backspace'){
+      <HTMLInputElement><unknown>document.getElementById((index - 1).toString()).focus();
+      this.items.removeAt(index);
+    }
+    
   }
 
   get items(): FormArray {
