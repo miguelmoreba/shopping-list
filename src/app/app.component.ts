@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
   onKeyDown(event, index){
     console.log(event)
     if(this.items.at(index).value.length === 0 && event.key === 'Backspace'){
+      event.preventDefault();
       <HTMLInputElement><unknown>document.getElementById((index - 1).toString()).focus();
       this.items.removeAt(index);
     }
