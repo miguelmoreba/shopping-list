@@ -9,7 +9,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "release": "ng build --prod --output-path docs --base-href /shopping-list/ && bash ./release.sh"
-
   },
   "private": true,
   "dependencies": {
