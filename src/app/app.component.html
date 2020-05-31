@@ -12,12 +12,10 @@
     <form [formGroup]="itemsArrayForm">
       <div formArrayName=items>
         <div *ngFor="let item of items.controls; let i = index">
-          <div class="card">
-            <div class='card-body'>
-              <input [formControlName]="i" [id]="i" (keydown.enter)="onKeydownEnter($event, i)"
+              <div class="col ml-2 pt-3">
+                <input [formControlName]="i" [id]="i" (keydown.enter)="onKeydownEnter($event, i)"
                 (keydown)="onKeyDown($event, i)" />
-            </div>
-          </div>
+              </div>
         </div>
       </div>
     </form>

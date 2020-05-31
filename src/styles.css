@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: black;
+    color: blanchedalmond;
+}
+
+div, input {
+    background-color: black;
+    border-color: black;
+    color: blanchedalmond;
+}
+
+input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid blanchedalmond;
+  }
