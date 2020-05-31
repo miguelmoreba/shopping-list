@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { FormControl, FormBuilder, FormArray, FormGroup, NgForm } from '@angular/forms';
 import { DataService } from './data.service';
 
 @Component({
@@ -18,13 +18,26 @@ export class AppComponent implements OnInit {
   isLoading = false;
   statusMessage = 'Up to date :)';
   timeOutItems;
+  justSaved = true;
 
   itemsArrayForm = this.fb.group({
     items: this.fb.array([])
   });
 
   ngOnInit(): void {
-    this.populateForm()
+    this.populateForm();
+    console.log(this.itemsArrayForm)
+    this.itemsArrayForm.valueChanges
+      .subscribe(() => {
+        if (!this.itemsArrayForm.pristine){
+          this.statusMessage = 'Waiting til you stop typing...'
+          if (this.timeOutItems) {
+            clearTimeout(this.timeOutItems);
+          }
+          this.timeOutItems = setTimeout(() => this.onClick(), 1000);
+        }
+        this.justSaved = false;
+      })
   }
 
   onUpdateClick() {
@@ -32,33 +45,36 @@ export class AppComponent implements OnInit {
   }
 
   onClick() {
+    this.statusMessage = 'Saving your changes...'
     this.isLoading = true;
     this.dataService.postItem(this.items.value.filter(value => value))
       .subscribe(
-        () => this.populateForm(),
+        () => {
+          this.populateForm();
+          this.statusMessage = 'Everything up to date :)'
+          this._markFormPristine(this.itemsArrayForm);
+        },
         error => {
           console.log(error);
+          this.statusMessage = 'There was a problem saving your changes';
           this.isLoading = false;
         }
       )
   }
 
-  onKeydownEnter(event, index) {
-    this.items.insert(index + 1, new FormControl(''));
-    setTimeout(() => {
-      <HTMLInputElement><unknown>document.getElementById((index + 1).toString()).focus();
-    }, 0)
-  }
-
   onKeyDown(event, index) {
-    if (this.timeOutItems){
-      clearTimeout(this.timeOutItems);
-    }
-    this.timeOutItems = setTimeout(() => this.onClick(), 3000);
     if (this.items.at(index).value.length === 0 && event.key === 'Backspace') {
       event.preventDefault();
       <HTMLInputElement><unknown>document.getElementById((index - 1).toString()).focus();
       this.items.removeAt(index);
+      return;
+    }
+    else if (event.key === 'Enter') {
+      this.items.insert(index + 1, new FormControl(''));
+      setTimeout(() => {
+        <HTMLInputElement><unknown>document.getElementById((index + 1).toString()).focus();
+      }, 0)
+      return;
     }
   }
 
@@ -81,4 +97,10 @@ export class AppComponent implements OnInit {
         this.isLoading = false;
       })
   }
+
+  private _markFormPristine(form: FormGroup | NgForm): void {
+    Object.keys(form.controls).forEach(control => {
+        form.controls[control].markAsPristine();
+    });
+}
 }

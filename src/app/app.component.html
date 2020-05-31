@@ -1,11 +1,14 @@
 <h1>Shopping list app</h1>
-
-<button class="btn btn-secondary ml-2 mt-2" (click)="onUpdateClick()">
+<!-- Commented out for now -->
+<!-- <button class="btn btn-secondary ml-2 mt-2" (click)="onUpdateClick()">
   Update
 </button>
 <button class="btn btn-secondary ml-2 mt-2" (click)="onClick()">
   Save Changes
-</button>
+</button> -->
+  <p>
+    {{this.statusMessage}}
+  </p>
 <span *ngIf="isLoading" class="spinner-border spinner-border-sm ml-2 mt-2" role="status" aria-hidden="true"></span>
 <div class="container-fluid pt-4 pl-2">
   <div class="row">
