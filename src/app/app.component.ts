@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
 
   title = 'shopping-list';
   isLoading = false;
+  statusMessage = 'Up to date :)';
+  timeOutItems;
 
   itemsArrayForm = this.fb.group({
     items: this.fb.array([])
@@ -25,7 +27,7 @@ export class AppComponent implements OnInit {
     this.populateForm()
   }
 
-  onUpdateClick(){
+  onUpdateClick() {
     this.populateForm();
   }
 
@@ -41,21 +43,23 @@ export class AppComponent implements OnInit {
       )
   }
 
-  onKeydownEnter(event, index){
+  onKeydownEnter(event, index) {
     this.items.insert(index + 1, new FormControl(''));
-    setTimeout(()=> {
+    setTimeout(() => {
       <HTMLInputElement><unknown>document.getElementById((index + 1).toString()).focus();
     }, 0)
   }
 
-  onKeyDown(event, index){
-    console.log(event)
-    if(this.items.at(index).value.length === 0 && event.key === 'Backspace'){
+  onKeyDown(event, index) {
+    if (this.timeOutItems){
+      clearTimeout(this.timeOutItems);
+    }
+    this.timeOutItems = setTimeout(() => this.onClick(), 3000);
+    if (this.items.at(index).value.length === 0 && event.key === 'Backspace') {
       event.preventDefault();
       <HTMLInputElement><unknown>document.getElementById((index - 1).toString()).focus();
       this.items.removeAt(index);
     }
-    
   }
 
   get items(): FormArray {
