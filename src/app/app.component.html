@@ -1,27 +1,30 @@
-<h1>Shopping list app</h1>
-<!-- Commented out for now -->
-<!-- <button class="btn btn-secondary ml-2 mt-2" (click)="onUpdateClick()">
+<div class="container">
+  <h1 class="row justify-content-center">Shopping list app</h1>
+  <!-- Commented out for now -->
+  <!-- <button class="btn btn-secondary ml-2 mt-2" (click)="onUpdateClick()">
   Update
 </button>
 <button class="btn btn-secondary ml-2 mt-2" (click)="onClick()">
   Save Changes
 </button> -->
-  <p>
+  <p class="row justify-content-center">
     {{this.statusMessage}}
   </p>
-<span *ngIf="isLoading" class="spinner-border spinner-border-sm ml-2 mt-2" role="status" aria-hidden="true"></span>
-<div class="container-fluid pt-4 pl-2">
-  <div class="row">
-    <form [formGroup]="itemsArrayForm">
-      <div formArrayName=items>
-        <div *ngFor="let item of items.controls; let i = index">
-              <div class="col ml-2 pt-2">
-                <input [formControlName]="i" [id]="i"
-                (keydown)="onKeyDown($event, i)" />
-              </div>
+  <div class="row justify-content-center">
+
+    <span *ngIf="isLoading" class="spinner-border spinner-border-sm ml-2 mt-2" role="status" aria-hidden="true"></span>
+  </div>
+
+  <form [formGroup]="itemsArrayForm">
+    <div formArrayName=items>
+      <div *ngFor="let item of items.controls; let i = index">
+        <div class="row justify-content-center">
+          <div class="col-sm-6">
+            <input [formControlName]="i" [id]="i" (keydown)="onKeyDown($event, i)" class="w-100" />
+          </div>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 
 </div>
